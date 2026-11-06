@@ -5,15 +5,17 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}">
     <title> {% block title %} CS Club {% endblock %} </title>
   </head>
-  <body>
-    <nav>
-      CS Club
-      <ul>
-        <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('about') }}">About</a></li>
-      </ul>
-    </nav>
-    {% block body %}
-    {% endblock %}
-  </body>
+  <main class="container-fluid">
+    <body>
+      <nav>
+        CS Club
+        <ul>
+          <li><a href="{{ url_for('home') }}">Home</a></li>
+          <li><a href="{{ url_for('about') }}">About</a></li>
+        </ul>
+      </nav>
+      {% block body %}
+      {% endblock %}
+    </body>
+  </main>
 </html>
