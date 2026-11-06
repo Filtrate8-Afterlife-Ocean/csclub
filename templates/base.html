@@ -5,8 +5,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.min.css') }}">
     <title> {% block title %} CS Club {% endblock %} </title>
   </head>
-  <main class="container-fluid">
-    <body>
+  <body>
+    <header class="container-fluid">
       <nav>
         CS Club
         <ul>
@@ -14,8 +14,10 @@
           <li><a href="{{ url_for('about') }}">About</a></li>
         </ul>
       </nav>
-      {% block body %}
-      {% endblock %}
-    </body>
-  </main>
+    </header>
+    <main class="container-fluid">
+    {% block body %}
+    {% endblock %}
+    </main>
+  </body>
 </html>
