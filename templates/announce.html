@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+    <form action="{{ url_for('announcement.html') }}" method="post">
+    <p>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title"/>
+    </p>
+    <p>
+        <label for="msg">Message:</label>
+        <textarea id="msg" name="msg"></textarea>
+    </p>
+    <p class="button">
+        <button type="submit">Send your message</button>
+    </p>
+    </form>
+{% endblock %}
