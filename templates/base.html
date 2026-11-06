@@ -12,7 +12,7 @@
         <ul>
           <li><a href="{{ url_for('home') }}">Home</a></li>
           <li><a href="{{ url_for('about') }}">About</a></li>
-          <li><a href="{{ url_for('announcements') }}">Announcements</a></li>
+          <li><a href="{{ url_for('announcements.view') }}">Announcements</a></li>
         </ul>
       </nav>
       {% with messages = get_flashed_messages() %}
