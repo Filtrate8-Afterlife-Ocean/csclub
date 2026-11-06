@@ -1,1 +1,9 @@
 {% extends "base.html" %}
+{% block body %}
+    {% if person %}
+      <p>Hello, {{ person }}</p>
+    {% else %}
+      <p>Hello stranger!</p>
+    {% endif %}
+    {{ super()  }}
+{% endblock %}
