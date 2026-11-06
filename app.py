@@ -1,9 +1,15 @@
 from flask import Flask, render_template, url_for, request, session, flash, redirect
+from classes import Announcement
 import os
 
 app = Flask(__name__)
 
 app.secret_key = os.environ["SECRET_KEY"]
+
+# Landing page
+@app.route("/")
+def landing():
+    return render_template("landing.html")
 
 # Home page
 @app.route("/user")
@@ -17,14 +23,10 @@ def about():
     return render_template("about.html")
 
 # See announcements
-messages = ["hi", "there"]
+messages = []
 @app.route("/announcements")
 def announcements():
-    # if request.method == 'GET':
     return render_template("announcements.html", messages=messages)
-    # else:
-    #     title = request.form['title']
-    #     message = request.form['msg']
 
 # Submit announcement
 @app.route("/announce", methods=['GET', 'POST'])
@@ -36,7 +38,7 @@ def announce():
         if not title or not message:
             feedback = "One or more fields are not filled out!"
         else:
-            messages.append(message)
+            messages.append(Announcement(title, message))
             feedback = "Announcement sent successfully!"
             flash("Message Successfully Sent!")
             return redirect(url_for('announcements'))
