@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-    {% for announcement in messages|reverse %}
+    {% for announcement in messages %}
         <h1>{{ announcement.title }}</h1>
         <p>{{ announcement.message }}</p>
     {% endfor %}
