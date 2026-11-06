@@ -12,8 +12,18 @@
         <ul>
           <li><a href="{{ url_for('home') }}">Home</a></li>
           <li><a href="{{ url_for('about') }}">About</a></li>
+          <li><a href="{{ url_for('announcements') }}">About</a></li>
         </ul>
       </nav>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
     </header>
     <main class="container-fluid">
       {% block body %}

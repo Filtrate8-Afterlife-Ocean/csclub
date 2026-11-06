@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, session
+from flask import Flask, render_template, url_for, request, session, flash, redirect
 import os
 
 app = Flask(__name__)
@@ -6,8 +6,8 @@ app = Flask(__name__)
 app.secret_key = os.environ["SECRET_KEY"]
 
 # Home page
-@app.route("/")
-@app.route("/<name>")
+@app.route("/user")
+@app.route("/user/<name>")
 def home(name=None):
     return render_template('home.html', person=name)
 
@@ -18,15 +18,26 @@ def about():
 
 # See announcements
 messages = ["hi", "there"]
-@app.route("/announcement", methods=['GET', 'POST'])
+@app.route("/announcements")
 def announcements():
     # if request.method == 'GET':
-    return render_template("announcements.html")
+    return render_template("announcements.html", messages=messages)
     # else:
     #     title = request.form['title']
     #     message = request.form['msg']
 
 # Submit announcement
-@app.route("/announce")
+@app.route("/announce", methods=['GET', 'POST'])
 def announce():
-    return render_template("announce.html")
+    feedback = None
+    if request.method == 'POST':
+        title = request.form['title']
+        message = request.form['msg']
+        if not title or not message:
+            feedback = "One or more fields are not filled out!"
+        else:
+            messages.append(message)
+            feedback = "Announcement sent successfully!"
+            flash("Message Successfully Sent!")
+            return redirect(url_for('announcements'))
+    return render_template("announce.html", feedback=feedback)
