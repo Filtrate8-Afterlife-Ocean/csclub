@@ -26,15 +26,11 @@ def announcements():
 @auth.exec_required
 def announce():
     form = forms.AnouncementForm()
-    feedback = None
     if form.validate_on_submit():
         title = form.title.data
         message = form.message.data
-        if not title or not message:
-            feedback = "One or more fields are not filled out!"
-        else:
-            submit_announcements(title, message)
-            feedback = "Announcement sent successfully!"
-            flash("Message Successfully Sent!")
-            return redirect(url_for('announcements.announcements'))
+        submit_announcements(title, message)
+        feedback = "Announcement sent successfully!"
+        flash("Message Successfully Sent!")
+        return redirect(url_for('announcements.announcements'))
     return render_template("announcements/create.html", form=form)
