@@ -1,3 +1,5 @@
+{% from "_formhelpers.html" import render_field %}
+
 {% extends "base.html" %}
 {% block title %}
   Post - CS Club
@@ -6,20 +8,9 @@
     <form action="{{ url_for('announcements.announce') }}" method="post">
         <div>{{ form.csrf_token }}</div>
 
-        <div>{{ form.title.label }} {{ form.title() }}</div>
-        {% if form.title.errors %}
-            <ul class="errors">{% for error in form.title.errors %}<li>{{ error }}</li>{% endfor %}</ul>
-        {% endif %}
-
-        <div>{{ form.message.label }} {{ form.message() }}</div>
-        {% if form.message.errors %}
-            <ul class="errors">{% for error in form.message.errors %}<li>{{ error }}</li>{% endfor %}</ul>
-        {% endif %}
-
-        <div>{{ form.url.label }} {{ form.url() }}</div>
-        {% if form.url.errors %}
-            <ul class="errors">{% for error in form.url.errors %}<li>{{ error }}</li>{% endfor %}</ul>
-        {% endif %}
+        {{ render_field(form.title )}}
+        {{ render_field(form.message )}}
+        {{ render_field(form.url )}}
 
         <p class="button">
             <button type="submit">Post announcement!</button>

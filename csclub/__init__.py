@@ -1,4 +1,4 @@
-from flask import Flask, config
+from flask import Flask
 
 from . import announcements, auth, main
 from .extensions import database, login_manager, migrate

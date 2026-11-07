@@ -46,5 +46,6 @@ class AnnouncementForm(FlaskForm):
         validators.InputRequired(message="Message is required."),
     ])
     url = URLField("URL", [
+        validators.Optional(),
         validators.URL(message="Input must be a valid URL.")
     ])

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import login_required
 
@@ -11,7 +9,7 @@ from .models import Announcement
 blueprint = Blueprint("announcements", __name__, url_prefix="/announcements")
 
 # Submit announcements
-def submit_announcements(title: str, message: str, url: Optional[str] = None) -> None:
+def submit_announcements(title: str, message: str, url: str | None = None) -> None:
     announcement = Announcement(title=title, message=message, url=url)
     database.session.add(announcement)
     database.session.commit()
@@ -36,7 +34,6 @@ def announce():
         message = form.message.data
         url = form.url.data
         submit_announcements(title, message, url)
-        feedback = "Announcement sent successfully!"
         flash("Message Successfully Sent!")
         return redirect(url_for('announcements.announcements'))
     return render_template("announcements/create.html", form=form)

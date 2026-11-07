@@ -9,7 +9,7 @@ def landing():
     return render_template("landing.html")
 
 # Home page
-@blueprint.get("/user/<name>")
+@blueprint.get("/user")
 @login_required
-def home(name):
-    return render_template('home.html', name=name)
+def home():
+    return render_template('home.html')

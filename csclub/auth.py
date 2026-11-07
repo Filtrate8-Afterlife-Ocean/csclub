@@ -27,7 +27,8 @@ def register():
         password = form.password.data
 
         try:
-            user = User(name=name, username=username, email=email, password_hash=User.hash_password(password))
+            user = User(name=name, username=username, email=email)
+            user.set_password(password)
             database.session.add(user)
             database.session.commit()
         except IntegrityError:

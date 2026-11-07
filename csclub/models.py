@@ -1,7 +1,6 @@
 from datetime import datetime, timezone
 
 from flask_login import UserMixin
-from sqlalchemy import Boolean, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -18,8 +17,8 @@ class User(UserMixin, database.Model):
     is_exec: Mapped[bool] = mapped_column(default=False)
     # attendance_count: Mapped[int] = mapped_column(default=0)
     
-    def hash_password(password: str) -> str:
-        return generate_password_hash(password)
+    def set_password(password: str) -> None:
+        self.password_hash = generate_password_hash(password)
 
     def validate_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)

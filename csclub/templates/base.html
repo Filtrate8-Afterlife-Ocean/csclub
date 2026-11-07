@@ -10,7 +10,7 @@
     <header class="container-fluid">
       <nav>
         
-        <a href="{{ url_for('main.home', name=current_user.username) if current_user.is_authenticated else url_for('main.landing') }}">CS Club</a>
+        <a href="{{ url_for('main.home') if current_user.is_authenticated else url_for('main.landing') }}">CS Club</a>
         <ul>
           {# <li><a href="{{ url_for('main.home') }}">Home</a></li> #}
           {# <li><a href="{{ url_for('main.about') }}">About</a></li> #}
