@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% block body %}
     {% for announcement in messages %}
-        <h1>{{ announcement.title }}</h1>
-        <p>{{ announcement.message }}</p>
-        <p>{{ announcement.date }}</p>
-        {% if announcement.url is not none %}
-            <iframe src="{{ announcement.url }}"
-        {% endif %}
+        <div class="container">
+            <h1>{{ announcement.title }}</h1>
+            <p>{{ announcement.message }}</p>
+            <p>{{ announcement.date }}</p>
+            {% if announcement.url is not none %}
+                <iframe src="{{ announcement.url }}" width="800" height="450"></iframe>
+            {% endif %}
+        </div>
     {% endfor %}
 {% endblock %}
