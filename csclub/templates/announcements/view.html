@@ -3,5 +3,6 @@
     {% for announcement in messages %}
         <h1>{{ announcement.title }}</h1>
         <p>{{ announcement.message }}</p>
+        <p>{{ announcement.date }}</p>
     {% endfor %}
 {% endblock %}
