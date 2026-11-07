@@ -66,7 +66,9 @@ def logout():
 def exec_required(function):
     @wraps(function)
     def decorated_function(*args, **kwargs):
-        if not current_user.is_exec:
+        if not current_user.is_authenticated:
+            return redirect(url_for("main.landing"))
+        elif not current_user.is_exec:
             abort(403, description="User is not an executive.")
         return function(*args, **kwargs)
     return decorated_function

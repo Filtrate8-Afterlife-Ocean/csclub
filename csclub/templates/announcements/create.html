@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block title %}
+  Post - CS Club
+{% endblock %}
 {% block body %}
     <form action="{{ url_for('announcements.announce') }}" method="post">
         <div>{{ form.csrf_token }}</div>

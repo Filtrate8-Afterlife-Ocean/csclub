@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block title %}
+  Register - CS Club
+{% endblock %}
 {% block body %}
     <form action="{{ url_for('auth.register') }}" method="post">
         <div>{{ form.csrf_token }}</div>

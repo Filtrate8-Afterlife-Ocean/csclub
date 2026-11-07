@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block title %}
+  Login - CS Club
+{% endblock %}
 {% block body %}
     <form action="{{ url_for('auth.login') }}" method="post">
         <div>{{ form.csrf_token }}</div>

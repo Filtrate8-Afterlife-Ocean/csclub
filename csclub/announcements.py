@@ -28,7 +28,6 @@ def announcements():
 
 # Submit announcement page
 @blueprint.route("/create", methods=['GET', 'POST'])
-@login_required
 @exec_required
 def announce():
     form = AnnouncementForm()
