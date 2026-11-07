@@ -14,9 +14,10 @@ class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(unique=True)
     email: Mapped[str] = mapped_column()
+    name: Mapped[str] = mapped_column()
 
 class Announcement(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column()
     message: Mapped[str] = mapped_column()
-    date: Mapped[datetime] = mapped_column(default=datetime.now(timezone.utc))
+    date: Mapped[datetime] = mapped_column(default=lambda: datetime.now(timezone.utc))
