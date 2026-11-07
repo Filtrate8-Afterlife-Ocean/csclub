@@ -1,7 +1,7 @@
 from functools import wraps
 
 from click import argument, secho
-from flask import Blueprint, abort, flash, redirect, render_template, url_for
+from flask import Blueprint, abort, flash, redirect, render_template, url_for, request
 from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy.exc import IntegrityError
 
@@ -23,7 +23,7 @@ def register():
     if form.validate_on_submit():
         name = form.name.data
         username = form.username.data
-        email = form.email.data
+        email = form.email.data.lower()
         password = form.password.data
 
         try:
@@ -52,7 +52,8 @@ def login():
             flash("Incorrect username or password.")
         else:
             login_user(user)
-            return redirect(url_for('main.home', name=username))
+            next_url = request.args.get('next')
+            return redirect(url_for(next_url or 'main.home', name=username))
 
     return render_template('auth/login.html', form=form)
 
