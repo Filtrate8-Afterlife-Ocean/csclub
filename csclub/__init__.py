@@ -1,21 +1,15 @@
-from flask import Flask, render_template, url_for, request, session, flash, redirect
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Integer, String
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from flask import Flask, render_template, url_for, request, session, flash, redirect, config
 from . import announcements, db
-import os
 
-def create_app(test_config=None):
+def create_app():
     
-
     app = Flask(__name__)
-    app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
+    app.config.from_object('config.py')
+
     db.db.init_app(app)
-
-
     with app.app_context():
         db.db.create_all()
+    
 
 
     # Landing page

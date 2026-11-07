@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-    <form action="{{ url_for('announcements.create') }}" method="post">
+    <form action="{{ url_for('announcements.announce') }}" method="post">
     <p>
         <label for="title">Title:</label>
         <input type="text" id="title" name="title"/>
