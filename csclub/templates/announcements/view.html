@@ -4,5 +4,8 @@
         <h1>{{ announcement.title }}</h1>
         <p>{{ announcement.message }}</p>
         <p>{{ announcement.date }}</p>
+        {% if announcement.url is not none %}
+            <iframe src="{{ announcement.url }}"
+        {% endif %}
     {% endfor %}
 {% endblock %}

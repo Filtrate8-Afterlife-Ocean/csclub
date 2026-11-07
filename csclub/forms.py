@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField, validators
+from wtforms import StringField, TextAreaField, PasswordField, validators, URLField
 
 class RegisterForm(FlaskForm):
     name = StringField("Name", [
@@ -39,4 +39,7 @@ class AnouncementForm(FlaskForm):
     ])
     message = TextAreaField("Message", [
         validators.InputRequired(message="Message is required."),
+    ])
+    url = URLField("URL", [
+        validators.URL(message="Input must be a valid URL.")
     ])

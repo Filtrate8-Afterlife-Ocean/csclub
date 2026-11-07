@@ -1,12 +1,13 @@
 from flask import Flask, render_template, url_for, request, session, flash, redirect, Blueprint
 from flask_login import login_required
+from typing import Optional
 from . import db, forms, auth
 
 bp = Blueprint("announcements", __name__, url_prefix="/announcements")
 
 # Submit announcements
-def submit_announcements(title: str, message: str) -> None:
-    announcement = db.Announcement(title=title, message=message)
+def submit_announcements(title: str, message: str, url: Optional[str] = None) -> None:
+    announcement = db.Announcement(title=title, message=message, url=url)
     db.db.session.add(announcement)
     db.db.session.commit()
 
@@ -29,7 +30,8 @@ def announce():
     if form.validate_on_submit():
         title = form.title.data
         message = form.message.data
-        submit_announcements(title, message)
+        url = form.url.data
+        submit_announcements(title, message, url)
         feedback = "Announcement sent successfully!"
         flash("Message Successfully Sent!")
         return redirect(url_for('announcements.announcements'))

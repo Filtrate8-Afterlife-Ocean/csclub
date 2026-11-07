@@ -40,3 +40,4 @@ class Announcement(db.Model):
     title: Mapped[str] = mapped_column()
     message: Mapped[str] = mapped_column()
     date: Mapped[datetime] = mapped_column(default=lambda: datetime.now(timezone.utc))
+    url: Mapped[str | None] = mapped_column()

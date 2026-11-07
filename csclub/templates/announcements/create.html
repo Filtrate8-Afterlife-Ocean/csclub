@@ -13,8 +13,13 @@
             <ul class="errors">{% for error in form.message.errors %}<li>{{ error }}</li>{% endfor %}</ul>
         {% endif %}
 
+        <div>{{ form.url.label }} {{ form.url() }}</div>
+        {% if form.url.errors %}
+            <ul class="errors">{% for error in form.url.errors %}<li>{{ error }}</li>{% endfor %}</ul>
+        {% endif %}
+
         <p class="button">
-            <button type="submit">Send your message</button>
+            <button type="submit">Post announcement!</button>
         </p>
     </form>
 {% endblock %}
