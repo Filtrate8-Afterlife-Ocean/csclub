@@ -28,6 +28,9 @@ class User(UserMixin, db.Model):
     password_hash: Mapped[str] = mapped_column()
     is_exec: Mapped[bool] = mapped_column(default=False)
 
+    def validate(self, password: str) -> bool:
+        return check_password_hash(self.password_hash, password)
+
 class Announcement(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column()

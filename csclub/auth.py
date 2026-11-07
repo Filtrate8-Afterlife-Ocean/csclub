@@ -1,5 +1,7 @@
 from flask import Flask, render_template, url_for, request, session, flash, redirect, Blueprint
+from flask_login import login_user
 from . import db, main
+
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
 
@@ -61,12 +63,11 @@ def login():
         feedback = locate_error(username, password)
         if feedback is None:
             user = db.db.session.execute(db.db.select(db.User).where(db.User.username == username)).scalar()
-            if user is None or not check_password_hash(user['password_hash'], password):
+            if user is None or not user.validate(password):  
                 feedback = "Incorrect username or password."
 
             if feedback is None:
-                session.clear()
-                session['user_id'] = user['id']
+                login_user(user)
                 return redirect(url_for('main.user', name=username))
 
             flash(feedback)
