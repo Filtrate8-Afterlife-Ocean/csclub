@@ -4,6 +4,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from flask_migrate import Migrate
 from datetime import datetime, timezone
 from flask_login import LoginManager, UserMixin    
+from werkzeug.security import check_password_hash, generate_password_hash
 
 class Base(DeclarativeBase):
     metadata = MetaData(naming_convention={
@@ -27,8 +28,11 @@ class User(UserMixin, db.Model):
     email: Mapped[str] = mapped_column(unique=True)
     password_hash: Mapped[str] = mapped_column()
     is_exec: Mapped[bool] = mapped_column(default=False)
+    
+    def hash_password(password: str) -> str:
+        return generate_password_hash(password)
 
-    def validate(self, password: str) -> bool:
+    def validate_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
 
 class Announcement(db.Model):

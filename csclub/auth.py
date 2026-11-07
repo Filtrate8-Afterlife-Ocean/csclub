@@ -33,8 +33,7 @@ def register():
 
         if feedback is None:
             try:
-                password_hash = generate_password_hash(password)
-                user = db.User(name=name, username=username, email=email, password_hash=password_hash)
+                user = db.User(name=name, username=username, email=email, password_hash=db.User.hash_password(password))
                 db.db.session.add(user)
                 db.db.session.commit()
             except db.IntegrityError:
@@ -70,6 +69,6 @@ def login():
                 login_user(user)
                 return redirect(url_for('main.user', name=username))
 
-            flash(feedback)
+        flash(feedback)
 
     return render_template('auth/login.html')
