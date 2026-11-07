@@ -42,7 +42,6 @@ def register():
 # Login page
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
-    next_url = request.args.get('next')
     form = LoginForm()
     if form.validate_on_submit():
         username = form.username.data
@@ -53,7 +52,10 @@ def login():
             flash("Incorrect username or password.")
         else:
             login_user(user)
-            return redirect(next_url or url_for('main.home'))
+            next_url = request.args.get('next')
+            if next_url is None or not next_url.startswith("/") or next_url.startswith("//"):
+                next_url = url_for("main.home")
+            return redirect(next_url)
 
     return render_template('auth/login.html', form=form)
 

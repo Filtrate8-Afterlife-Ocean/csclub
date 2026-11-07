@@ -5,7 +5,7 @@
   Login - CS Club
 {% endblock %}
 {% block body %}
-    <form action="{{ url_for('auth.login') }}" method="post">
+    <form method="post">
         <div>{{ form.csrf_token }}</div>
         
         {{ render_field(form.username )}}
