@@ -15,6 +15,9 @@
           {# <li><a href="{{ url_for('main.about') }}">About</a></li> #}
           <li><a href="{{ url_for('announcements.announcements') }}">Announcements</a></li>
           {% if current_user.is_authenticated %}
+            {% if current_user.is_exec %}
+              <li><a href="{{ url_for('announcements.announce') }}">Post</a></li>
+            {% endif %}
             <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
           {% else %}
             <li><a href="{{ url_for('auth.register') }}">Register</a></li>

@@ -12,7 +12,7 @@ class RegisterForm(FlaskForm):
     ])
     email = StringField('Email Address', [
         validators.InputRequired(message="Email is required."),
-        validators.Length(min=6, max=35, message="Email must be between 6 and 35 characters long."),
+        validators.Length(min=6, max=35, message="Email must be between 6 and 254 characters long."),
         validators.Email(message="Email must be valid")
     ])
     password = PasswordField("Password", [

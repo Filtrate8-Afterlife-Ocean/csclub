@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, request, session, flash, redirect, Blueprint
 from flask_login import login_required
-from . import db, forms
+from . import db, forms, auth
 
 bp = Blueprint("announcements", __name__, url_prefix="/announcements")
 
@@ -16,17 +16,18 @@ def get_announcements():
 
 # View announcements page
 @bp.route("/view")
-# @login_required
+@login_required
 def announcements():
     return render_template("announcements/view.html", messages=get_announcements())
 
 # Submit announcement page
 @bp.route("/create", methods=['GET', 'POST'])
-# @login_required
+@login_required
+@auth.exec_required
 def announce():
     form = forms.AnouncementForm()
     feedback = None
-    if request.method == 'POST':
+    if form.validate_on_submit():
         title = form.title.data
         message = form.message.data
         if not title or not message:
