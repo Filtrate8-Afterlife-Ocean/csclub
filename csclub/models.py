@@ -17,7 +17,7 @@ class User(UserMixin, database.Model):
     is_exec: Mapped[bool] = mapped_column(default=False)
     # attendance_count: Mapped[int] = mapped_column(default=0)
     
-    def set_password(password: str) -> None:
+    def set_password(self, password: str) -> None:
         self.password_hash = generate_password_hash(password)
 
     def validate_password(self, password: str) -> bool:
