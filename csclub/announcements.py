@@ -1,6 +1,5 @@
 from flask import Flask, render_template, url_for, request, session, flash, redirect, Blueprint
 from . import db
-import os
 
 bp = Blueprint("announcements", __name__, url_prefix="/announcements")
 
