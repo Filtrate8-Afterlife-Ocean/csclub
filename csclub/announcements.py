@@ -1,32 +1,37 @@
-from flask import Flask, render_template, url_for, request, session, flash, redirect, Blueprint
-from flask_login import login_required
 from typing import Optional
-from . import db, forms, auth
 
-bp = Blueprint("announcements", __name__, url_prefix="/announcements")
+from flask import Blueprint, flash, redirect, render_template, url_for
+from flask_login import login_required
+
+from .auth import exec_required
+from .extensions import database
+from .forms import AnnouncementForm
+from .models import Announcement
+
+blueprint = Blueprint("announcements", __name__, url_prefix="/announcements")
 
 # Submit announcements
 def submit_announcements(title: str, message: str, url: Optional[str] = None) -> None:
-    announcement = db.Announcement(title=title, message=message, url=url)
-    db.db.session.add(announcement)
-    db.db.session.commit()
+    announcement = Announcement(title=title, message=message, url=url)
+    database.session.add(announcement)
+    database.session.commit()
 
 # Get announcements
 def get_announcements():
-    return db.db.session.execute(db.db.select(db.Announcement).order_by(db.Announcement.id.desc())).scalars()
+    return database.session.execute(database.select(Announcement).order_by(Announcement.id.desc())).scalars()
 
 # View announcements page
-@bp.route("/view")
+@blueprint.get("/view")
 @login_required
 def announcements():
     return render_template("announcements/view.html", messages=get_announcements())
 
 # Submit announcement page
-@bp.route("/create", methods=['GET', 'POST'])
+@blueprint.route("/create", methods=['GET', 'POST'])
 @login_required
-@auth.exec_required
+@exec_required
 def announce():
-    form = forms.AnouncementForm()
+    form = AnnouncementForm()
     if form.validate_on_submit():
         title = form.title.data
         message = form.message.data

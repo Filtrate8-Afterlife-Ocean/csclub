@@ -1,21 +1,25 @@
-from flask import Flask, render_template, url_for, request, session, flash, redirect, Blueprint, abort
-from sqlalchemy.exc import IntegrityError
-from flask_login import login_user, logout_user, login_required, current_user
 from functools import wraps
-from . import db, main, forms
-import click
 
-bp = Blueprint("auth", __name__, url_prefix="/auth")
+from click import argument, secho
+from flask import Blueprint, abort, flash, redirect, render_template, url_for
+from flask_login import current_user, login_required, login_user, logout_user
+from sqlalchemy.exc import IntegrityError
+
+from .extensions import database, login_manager
+from .forms import LoginForm, RegisterForm
+from .models import User
+
+blueprint = Blueprint("auth", __name__, url_prefix="/auth")
 
 # Load user in
-@db.login_manager.user_loader
+@login_manager.user_loader
 def load_user(id: str):
-    return db.db.session.get(db.User, int(id)) # db.db.session.execute(db.db.select(db.User).where(db.User.id == id)).scalar()
+    return database.session.get(User, int(id)) 
 
 # Register page
-@bp.route("/register", methods=["GET", "POST"])
+@blueprint.route("/register", methods=["GET", "POST"])
 def register():
-    form = forms.RegisterForm()
+    form = RegisterForm()
     if form.validate_on_submit():
         name = form.name.data
         username = form.username.data
@@ -23,11 +27,11 @@ def register():
         password = form.password.data
 
         try:
-            user = db.User(name=name, username=username, email=email, password_hash=db.User.hash_password(password))
-            db.db.session.add(user)
-            db.db.session.commit()
+            user = User(name=name, username=username, email=email, password_hash=User.hash_password(password))
+            database.session.add(user)
+            database.session.commit()
         except IntegrityError:
-            db.db.session.rollback()
+            database.session.rollback()
             flash("Username or email is already registered.")
         else:
             return redirect(url_for("auth.login"))
@@ -35,14 +39,14 @@ def register():
     return render_template('auth/register.html', form=form) 
 
 # Login page
-@bp.route("/login", methods=["GET", "POST"])
+@blueprint.route("/login", methods=["GET", "POST"])
 def login():
-    form = forms.LoginForm()
+    form = LoginForm()
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
 
-        user = db.db.session.execute(db.db.select(db.User).where(db.User.username == username)).scalar()
+        user = database.session.execute(database.select(User).where(User.username == username)).scalar()
         if user is None or not user.validate_password(password):  
             flash("Incorrect username or password.")
         else:
@@ -52,7 +56,7 @@ def login():
     return render_template('auth/login.html', form=form)
 
 # Logout
-@bp.route("/logout")
+@blueprint.get("/logout")
 @login_required
 def logout():
     logout_user()
@@ -68,13 +72,14 @@ def exec_required(function):
     return decorated_function
 
 # Create executive (terminal only)
-@bp.cli.command("declare-exec")
-@click.argument("username")
+@blueprint.cli.command("declare-exec")
+@argument("username")
 def declare_exec(username):
-    user = db.db.session.execute(db.db.select(db.User).where(db.User.username == username)).scalar()
+    user = database.session.execute(database.select(User).where(User.username == username)).scalar()
     if user is None:
-        click.secho("No user found!", fg="red", bold=True)
+        secho("No user found!", fg="red", bold=True)
         return
     user.is_exec = True
-    db.db.session.commit()
-    click.secho(f"{username} successfully declared as an exec!", fg="green", bold=True)
+    database.session.commit()
+    secho(f"{username} successfully declared as an exec!", fg="green", bold=True)
+

@@ -1,6 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField, validators, URLField
+from wtforms import (PasswordField, StringField, TextAreaField, URLField,
+                     validators)
 
+
+# Registration form for new user
 class RegisterForm(FlaskForm):
     name = StringField("Name", [
         validators.InputRequired(message="Name is required"),
@@ -23,6 +26,7 @@ class RegisterForm(FlaskForm):
         validators.EqualTo("password", message="Passwords must match.")
     ])
 
+# Login form for pre-existing users
 class LoginForm(FlaskForm):
     username = StringField("Username", [
         validators.InputRequired(message="Username is required."),
@@ -33,7 +37,8 @@ class LoginForm(FlaskForm):
         validators.Length(min=8, max=64, message="Password must be between 8 and 64 characters long.")
     ])
 
-class AnouncementForm(FlaskForm):
+# Announcement form with optional URL for Google Slides
+class AnnouncementForm(FlaskForm):
     title = StringField("Title", [
         validators.InputRequired(message="Title is required"),
     ])

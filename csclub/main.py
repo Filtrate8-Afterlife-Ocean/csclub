@@ -1,15 +1,15 @@
-from flask import Flask, render_template, Blueprint
+from flask import Blueprint, render_template
 from flask_login import login_required
 
-bp = Blueprint("main", __name__, url_prefix="/")
+blueprint = Blueprint("main", __name__, url_prefix="/")
 
 # Landing page
-@bp.route("/")
+@blueprint.get("/")
 def landing():
     return render_template("landing.html")
 
 # Home page
-@bp.route("/user/<name>")
+@blueprint.get("/user/<name>")
 @login_required
 def home(name):
     return render_template('home.html', name=name)
