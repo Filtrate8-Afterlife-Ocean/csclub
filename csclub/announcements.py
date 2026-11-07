@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, request, session, flash, redirect, Blueprint
+from flask_login import login_required
 from . import db
 
 bp = Blueprint("announcements", __name__, url_prefix="/announcements")
@@ -15,11 +16,13 @@ def get_announcements():
 
 # View announcements page
 @bp.route("/view")
+@login_required
 def announcements():
     return render_template("announcements/view.html", messages=get_announcements())
 
 # Submit announcement page
 @bp.route("/create", methods=['GET', 'POST'])
+@login_required
 def announce():
     feedback = None
     if request.method == 'POST':
