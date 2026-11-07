@@ -6,7 +6,7 @@
     {% for announcement in messages %}
         <div class="container">
             <h1>{{ announcement.title }}</h1>
-            <p>{{ announcement.message }}</p>
+            <p class="messsage">{{ announcement.message }}</p>
             <p>{{ announcement.date }}</p>
             {% if announcement.url %}
                 <iframe src="{{ announcement.url }}" width="800" height="450"></iframe>
