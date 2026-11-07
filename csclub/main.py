@@ -9,13 +9,7 @@ def landing():
     return render_template("landing.html")
 
 # Home page
-@bp.route("/user")
 @bp.route("/user/<name>")
 @login_required
-def home(name=None):
-    return render_template('home.html', person=name)
-
-# About page
-@bp.route("/about")
-def about():
-    return render_template("about.html")
+def home(name):
+    return render_template('home.html', name=name)
