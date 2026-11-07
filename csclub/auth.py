@@ -73,8 +73,8 @@ def exec_required(function):
 def declare_exec(username):
     user = db.db.session.execute(db.db.select(db.User).where(db.User.username == username)).scalar()
     if user is None:
-        click.echo("No user found!")
+        click.secho("No user found!", fg="red", bold=True)
         return
     user.is_exec = True
     db.db.session.commit()
-    click.echo(f"{username} successfully declared as an exec!")
+    click.secho(f"{username} successfully declared as an exec!", fg="green", bold=True)
