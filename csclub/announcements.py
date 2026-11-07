@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, request, session, flash, redirect, Blueprint
 from flask_login import login_required
-from . import db
+from . import db, forms
 
 bp = Blueprint("announcements", __name__, url_prefix="/announcements")
 
@@ -16,18 +16,19 @@ def get_announcements():
 
 # View announcements page
 @bp.route("/view")
-@login_required
+# @login_required
 def announcements():
     return render_template("announcements/view.html", messages=get_announcements())
 
 # Submit announcement page
 @bp.route("/create", methods=['GET', 'POST'])
-@login_required
+# @login_required
 def announce():
+    form = forms.AnouncementForm()
     feedback = None
     if request.method == 'POST':
-        title = request.form['title']
-        message = request.form['msg']
+        title = form.title.data
+        message = form.message.data
         if not title or not message:
             feedback = "One or more fields are not filled out!"
         else:
@@ -35,4 +36,4 @@ def announce():
             feedback = "Announcement sent successfully!"
             flash("Message Successfully Sent!")
             return redirect(url_for('announcements.announcements'))
-    return render_template("announcements/create.html", feedback=feedback)
+    return render_template("announcements/create.html", form=form)

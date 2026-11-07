@@ -1,74 +1,51 @@
 from flask import Flask, render_template, url_for, request, session, flash, redirect, Blueprint
+from sqlalchemy.exc import IntegrityError
 from flask_login import login_user
-from . import db, main
+from . import db, main, forms
 
 
 bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 # Load user in
+@db.login_manager.user_loader
 def load_user(id: str):
     return db.db.session.execute(db.db.select(db.User).where(db.User.id == id)).scalar()
-
-# Locate error for register form submission
-def locate_register_error(name: str, username: str, email: str, password: str) -> str:
-    if not name:
-        return "Name is required."
-    elif not username:
-        return "Username is required."
-    elif not email:
-        return "Email is required."
-    elif not password:
-        return "Password is required."
-    return None
 
 # Register page
 @bp.route("/register", methods=["GET", "POST"])
 def register():
+    form = forms.RegisterForm()
     if request.method == "POST":
-        name = request.form["name"]
-        username = request.form["username"]
-        email = request.form["email"]
-        password = request.form['password']
-        feedback = locate_error(username, password)
+        name = form.name.data
+        username = form.username.data
+        email = form.email.data
+        password = form.password.data
 
-        if feedback is None:
-            try:
-                user = db.User(name=name, username=username, email=email, password_hash=db.User.hash_password(password))
-                db.db.session.add(user)
-                db.db.session.commit()
-            except db.IntegrityError:
-                feedback = f"Username or email is already registered."
-            else:
-                return redirect(url_for("auth.login"))
+        try:
+            user = db.User(name=name, username=username, email=email, password_hash=db.User.hash_password(password))
+            db.db.session.add(user)
+            db.db.session.commit()
+        except IntegrityError:
+            db.db.session.rollback()
+            flash("Username or email is already registered.")
+        else:
+            return redirect(url_for("auth.login"))
 
-        flash(feedback)
-
-    return render_template('auth/register.html') 
-
-# Locate error for login form submission
-def locate_login_error(username: str, password: str) -> str:
-    if not name:
-        return "Name is required."
-    else:
-        return "Password is required."
-    return None
+    return render_template('auth/register.html', form=form) 
 
 # Login page
 @bp.route("/login", methods=["GET", "POST"])
 def login():
+    form = forms.LoginForm()
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-        feedback = locate_error(username, password)
-        if feedback is None:
-            user = db.db.session.execute(db.db.select(db.User).where(db.User.username == username)).scalar()
-            if user is None or not user.validate(password):  
-                feedback = "Incorrect username or password."
+        username = form.username.data
+        password = form.password.data
 
-            if feedback is None:
-                login_user(user)
-                return redirect(url_for('main.user', name=username))
+        user = db.db.session.execute(db.db.select(db.User).where(db.User.username == username)).scalar()
+        if user is None or not user.validate_password(password):  
+            flash("Incorrect username or password.")
+        else:
+            login_user(user)
+            return redirect(url_for('main.home', name=username))
 
-        flash(feedback)
-
-    return render_template('auth/login.html')
+    return render_template('auth/login.html', form=form)

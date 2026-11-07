@@ -8,9 +8,10 @@
   <body>
     <header class="container-fluid">
       <nav>
-        CS Club
+        
+        <a href="{{ url_for('main.home') }}">CS Club</a>
         <ul>
-          <li><a href="{{ url_for('main.home') }}">Home</a></li>
+          {# <li><a href="{{ url_for('main.home') }}">Home</a></li> #}
           <li><a href="{{ url_for('main.about') }}">About</a></li>
           <li><a href="{{ url_for('announcements.announcements') }}">Announcements</a></li>
         </ul>
