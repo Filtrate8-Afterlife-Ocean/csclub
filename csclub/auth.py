@@ -90,34 +90,34 @@ def declare_exec(username):
     secho(f"{username} successfully declared as an exec!", fg="green", bold=True)
 
 # Promote user to executive
-@blueprint.post("/promote/<user_id>")
+@blueprint.post("/promote/<int:user_id>")
 @exec_required
 def promote(user_id: int):
     form = ButtonForm()
     if form.validate_on_submit():
-        user = database.session.execute(database.select(User).where(User.id == user_id)).scalar()
+        user = database.get_or_404(User, user_id)
         user.is_exec = True
         database.session.commit()
     return redirect(url_for("leaderboard.leaderboard"))
 
 # Demote executive to user
-@blueprint.post("/demote/<user_id>")
+@blueprint.post("/demote/<int:user_id>")
 @exec_required
 def demote(user_id: int):
     form = ButtonForm()
     if form.validate_on_submit():
-        user = database.session.execute(database.select(User).where(User.id == user_id)).scalar()
+        user = database.get_or_404(User, user_id)
         user.is_exec = False
         database.session.commit()
     return redirect(url_for("leaderboard.leaderboard"))
 
 # Remove user
-@blueprint.post("/remove/<user_id>")
+@blueprint.post("/remove/<int:user_id>")
 @exec_required
 def remove(user_id: int):
     form = ButtonForm()
     if form.validate_on_submit():
-        user = database.session.execute(database.select(User).where(User.id == user_id)).scalar()
+        user = database.get_or_404(User, user_id)
         database.session.delete(user)
         database.session.commit()
     return redirect(url_for("leaderboard.leaderboard"))

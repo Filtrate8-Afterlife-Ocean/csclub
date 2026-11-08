@@ -3,10 +3,15 @@ A work-in-progress website for LHSS's CS Club
 Visit [https://csclub-886421535915.us-east1.run.app/](https://csclub-886421535915.us-east1.run.app/)
 
 ## Features
-- [X] User registration/login/logout
+- [X] User registration, login, and logout
+- [X] Promoting, demoting, and removing users
 - [X] Viewing and creating announcements
+- [X] Links to lessons
+- [ ] Points system for leaderboard
 - [ ] Attendance system
-- [ ] Links to lessons
+- [ ] Additional polish
+    - [ ] Popup for flashes instead of plain text
+    - [ ] Proper landing and greeting page
 
 ## Getting Started
 Just look at requirements.txt if you want to see all the prerequisite packages to install.  
