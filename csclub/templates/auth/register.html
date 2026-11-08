@@ -6,17 +6,19 @@
   Register - CS Club
 {% endblock %}
 {% block body %}
-    <form action="{{ url_for('auth.register') }}" method="post">
-        <div>{{ form.csrf_token }}</div>
-
-        {{ render_field(form.name )}}
-        {{ render_field(form.username )}}
-        {{ render_field(form.email )}}
-        {{ render_field(form.password )}}
-        {{ render_field(form.verify_password )}}
-
-        <p class="button">
-            <button type="submit">Register!</button>
-        </p>
-    </form>
+    <div class="register">
+        <img src="{{ url_for('static', filename='logo.svg') }}" alt="CS Club Logo" height="20">
+        <h2>CS Club</h2>
+        <form action="{{ url_for('auth.register') }}" method="post">
+            {{ form.csrf_token }}
+            {{ render_field(form.name )}}
+            {{ render_field(form.username )}}
+            {{ render_field(form.email )}}
+            {{ render_field(form.password )}}
+            {{ render_field(form.verify_password )}}
+            <p class="button">
+                <button type="submit">Register!</button>
+            </p>
+        </form>
+    </div>
 {% endblock %}

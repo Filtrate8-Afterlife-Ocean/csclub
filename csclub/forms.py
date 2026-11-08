@@ -10,42 +10,42 @@ class RegisterForm(FlaskForm):
     name = StringField("Name", [
         validators.InputRequired(message="Name is required"),
         validators.Length(min=1, max=25, message="Name must be between 1 and 25 characters long."),
-    ], render_kw={"placeholder": "John Doe"})
+    ], render_kw={"placeholder": "Full Name"})
 
     # Username
     username = StringField("Username", [
         validators.InputRequired(message="Username is required."),
         validators.Length(min=4, max=25, message="Username must be between 4 and 25 characters long.")
-    ], render_kw={"placeholder": "YouKn0wWho"})
+    ], render_kw={"placeholder": "Username"})
     
     # Email
     email = StringField('Email Address', [
         validators.InputRequired(message="Email is required."),
         validators.Length(min=6, max=254, message="Email must be between 6 and 254 characters long."),
         validators.Email(message="Email must be valid")
-    ], render_kw={"placeholder": "name@wrdsb.ca"})
+    ], render_kw={"placeholder": "Email"})
 
     # Password
     password = PasswordField("Password", [
         validators.InputRequired(message="Password is required."),
         validators.Length(min=8, max=64, message="Password must be between 8 and 64 characters long.")
-    ], render_kw={"placeholder": "Enter your password"})
+    ], render_kw={"placeholder": "Password"})
     
     # Verify Password
     verify_password = PasswordField("Verify Password", [
         validators.EqualTo("password", message="Passwords must match.")
-    ], render_kw={"placeholder": "Enter your password"})
+    ], render_kw={"placeholder": "Verify Password"})
 
 # Login form for pre-existing users
 class LoginForm(FlaskForm):
     username = StringField("Username", [
         validators.InputRequired(message="Username is required."),
         validators.Length(min=4, max=25, message="Username must be between 4 and 25 characters long.")
-    ])
+    ], render_kw={"placeholder": "Username"})
     password = PasswordField("Password", [
         validators.InputRequired(message="Password is required."),
         validators.Length(min=8, max=64, message="Password must be between 8 and 64 characters long.")
-    ])
+    ], render_kw={"placeholder": "Password"})
 
 # Buttom form for promotion and demotion of users
 class ButtonForm(FlaskForm):

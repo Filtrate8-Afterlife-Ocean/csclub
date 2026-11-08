@@ -3,15 +3,23 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/pico.blue.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/other.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/extra.css') }}">
+    {# <link rel="stylesheet" href="{{ url_for('static', filename='css/style-navbar.css') }}"> #}
     <link rel="icon" href="{{ url_for('static', filename='logo.svg') }}">
     <title> {% block title %} CS Club {% endblock %} </title>
   </head>
   <body>
     <header class="container-fluid">
-      <nav>
-        
-        <a href="{{ url_for('main.home') if current_user.is_authenticated else url_for('main.landing') }}">CS Club</a>
+      <nav class="nav">
+        <ul>
+          <li>
+            <a href="{{ url_for('main.home') if current_user.is_authenticated else url_for('main.landing') }}" class="logo">
+              <img src="{{ url_for('static', filename='logo.svg') }}" alt="CS Club Logo" height="2rem">
+              <strong>CS Club</strong>
+            </a>
+          </li>
+        </ul>
+
         <ul>
 
           {% if current_user.is_authenticated %}
@@ -22,8 +30,8 @@
             {% endif %}
             <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
           {% else %}
-            <li><a href="{{ url_for('auth.register') }}">Register</a></li>
             <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+            <li><a role="button" href="{{ url_for('auth.register') }}">Register</a></li>
           {% endif %}
         </ul>
       </nav>

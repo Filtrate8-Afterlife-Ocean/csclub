@@ -1,0 +1,39 @@
+.message {
+    white-space: pre-line;
+}
+
+.register {
+    margin-bottom: var(--pico-block-spacing-vertical);
+    padding: var(--pico-block-spacing-vertical) var(--pico-block-spacing-horizontal);
+    border-radius: var(--pico-border-radius);
+    background: var(--pico-card-background-color);
+    box-shadow: var(--pico-card-box-shadow);
+    max-width: 30rem;
+    margin-inline: auto;
+    text-align:center;
+}
+
+.error {
+    color: #e63946;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+img {
+  max-width: 25%;
+  height: auto;
+  border-style: none;
+}
+
+
+
+/* .navbar {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--pico-spacing);
+  padding-left: var(--pico-spacing);
+} */

@@ -5,14 +5,16 @@
   Login - CS Club
 {% endblock %}
 {% block body %}
-    <form method="post">
-        <div>{{ form.csrf_token }}</div>
-        
-        {{ render_field(form.username )}}
-        {{ render_field(form.password )}}
-
-        <p class="button">
-            <button type="submit">Login!</button>
-        </p>
-    </form>
+    <div class="register">
+        <img src="{{ url_for('static', filename='logo.svg') }}" alt="CS Club Logo" height="100">
+        <h2>CS Club</h2>
+        <form method="post">
+            {{ form.csrf_token }}
+            {{ render_field(form.username )}}
+            {{ render_field(form.password )}}
+            <p class="button">
+                <button type="submit">Login!</button>
+            </p>
+        </form>
+    </div>
 {% endblock %}
