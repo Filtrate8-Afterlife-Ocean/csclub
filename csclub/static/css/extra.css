@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   font-size: x-large;
-  color: white;
+  color: var(--pico-contrast);
   gap: 0.5rem;
 }
 
@@ -56,4 +56,12 @@
 
 .remove button {
   background: #e63946;
+}
+
+html {
+  scrollbar-width: none;  
+}
+
+html::-webkit-scrollbar {
+  display: none;  
 }

@@ -1,6 +1,6 @@
 from flask import Flask
 
-from . import announcements, auth, leaderboard, main
+from . import activities, announcements, auth, leaderboard, main
 from .extensions import database, login_manager, migrate
 
 
@@ -13,6 +13,7 @@ def create_app():
     migrate.init_app(app, database)
     login_manager.init_app(app)
 
+    app.register_blueprint(activities.blueprint)
     app.register_blueprint(announcements.blueprint)
     app.register_blueprint(auth.blueprint)
     app.register_blueprint(leaderboard.blueprint)

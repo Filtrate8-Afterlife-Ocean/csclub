@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block body %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/two-pointers.css') }}">
+
+    <div id="boxes" class="boxes"></div>
+
+
+    <div class="button-row">
+        <p class="button">
+            <button type="button" id="moveLeftBtn">Move left pointer</button>
+        </p>
+
+        <p class="button">
+            <button type="button" id="moveRightBtn">Move right pointer</button>
+        </p>
+
+        <p class="button">
+            <button type="button" id="newPuzzleBtn">New puzzle</button>
+        </p>   
+    </div>
+
+    <div class="text-row">
+        <p><strong>Target: <span id="target"></span></strong></p>
+        <p><strong>Current sum: <span id="sum"></span></strong></p>
+    </div>
+
+    <div class="text-row">
+        <p><strong><span id="message"></span></strong></p>
+    </div>
+
+
+
+
+    <script defer src="/static/js/two_pointers.js"></script>
+{% endblock %}
