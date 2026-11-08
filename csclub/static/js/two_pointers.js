@@ -14,7 +14,7 @@ let idx1;
 let idx2;
 let currentSum;
 
-let boxes = document.getElementById("boxes")
+let boxes = document.getElementById("boxes");
 let slot;
 let box;
 let pointer;
@@ -41,30 +41,30 @@ function render() {
     }
 
     for (let idx = 0; idx < length; idx++) {
-        slot = document.createElement("div")
-        slot.className = "slot"
+        slot = document.createElement("div");
+        slot.className = "slot";
 
-        box = document.createElement("div")
-        box.className = "box"
-        slot.appendChild(box)
+        box = document.createElement("div");
+        box.className = "box";
+        slot.appendChild(box);
 
-        pointer = document.createElement("div")
-        pointer.className = "pointer"
-        slot.appendChild(pointer)
+        pointer = document.createElement("div");
+        pointer.className = "pointer";
+        slot.appendChild(pointer);
 
         if (idx === left || idx === right) {
             if (idx == left) {
-                pointer.textContent = "↑\nidx1"
+                pointer.textContent = "↑\nleft";
             } else {
-                pointer.textContent = "↑\nidx2"
+                pointer.textContent = "↑\nright";
             }
             box.textContent = nums[idx];
-            box.classList.add("selected")
+            box.classList.add("selected");
         } else {
-            box.textContent = "?"
+            box.textContent = "?";
         }
 
-        boxes.appendChild(slot)
+        boxes.appendChild(slot);
     }
 }
 
@@ -89,22 +89,22 @@ function newPuzzle() {
 
     nums = [];
     for (let idx = 0; idx < length; idx++) {
-        nums.push(getRandomInt(100))
+        nums.push(getRandomInt(100));
     }
-    nums.sort(compareNumbers)
+    nums.sort(compareNumbers);
     
     idx1 = getRandomInt(length);
     idx2 = getRandomInt(length);
     while (idx1 === idx2) {
         idx2 = getRandomInt(length);
     }
-    target = nums[idx1] + nums[idx2]
+    target = nums[idx1] + nums[idx2];
 
-    left = 0
-    right = length - 1
+    left = 0;
+    right = length - 1;
     currentSum = nums[left] + nums[right];
 
-    render()
+    render();
 }
 
 newPuzzle();
