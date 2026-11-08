@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}
+  Leaderboard - CS Club
+{% endblock %}
+{% block body %}
+    <table>
+    <tr>
+        <tr>
+            <th>Username</th>
+            <th>Name</th>
+            {% if current_user.is_exec %}
+                <th>Email</th>
+            {% endif %}
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.name }}</td>
+                {% if current_user.is_exec %}
+                    <td> {{user.email}} </td>
+                    <td>
+                        {% if user.is_exec %} 
+                            <form action="{{ url_for('auth.demote', user_id=user.id) }}" method="post">
+                                <div>{{ form.csrf_token }}</div>
+                                <p class="button">
+                                    <button type="submit">Demote</button>
+                                </p>
+                            </form>
+                        {% else %}
+                            <form action="{{ url_for('auth.promote', user_id=user.id) }}" method="post">
+                                <div>{{ form.csrf_token }}</div>
+                                <p class="button">
+                                    <button type="submit">Promote</button>
+                                </p>
+                            </form>
+                        {% endif %}
+                        <form action="{{ url_for('auth.remove', user_id=user.id) }}" method="post">
+                            <div>{{ form.csrf_token }}</div>
+                            <p class="button">
+                                <button type="submit">Remove</button>
+                            </p>
+                        </form>
+                    </td>
+
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

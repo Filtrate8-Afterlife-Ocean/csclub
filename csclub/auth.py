@@ -6,7 +6,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy.exc import IntegrityError
 
 from .extensions import database, login_manager
-from .forms import LoginForm, RegisterForm
+from .forms import ButtonForm, LoginForm, RegisterForm
 from .models import User
 
 blueprint = Blueprint("auth", __name__, url_prefix="/auth")
@@ -89,3 +89,35 @@ def declare_exec(username):
     database.session.commit()
     secho(f"{username} successfully declared as an exec!", fg="green", bold=True)
 
+# Promote user to executive
+@blueprint.post("/promote/<user_id>")
+@exec_required
+def promote(user_id: int):
+    form = ButtonForm()
+    if form.validate_on_submit():
+        user = database.session.execute(database.select(User).where(User.id == user_id)).scalar()
+        user.is_exec = True
+        database.session.commit()
+    return redirect(url_for("leaderboard.leaderboard"))
+
+# Demote executive to user
+@blueprint.post("/demote/<user_id>")
+@exec_required
+def demote(user_id: int):
+    form = ButtonForm()
+    if form.validate_on_submit():
+        user = database.session.execute(database.select(User).where(User.id == user_id)).scalar()
+        user.is_exec = False
+        database.session.commit()
+    return redirect(url_for("leaderboard.leaderboard"))
+
+# Remove user
+@blueprint.post("/remove/<user_id>")
+@exec_required
+def remove(user_id: int):
+    form = ButtonForm()
+    if form.validate_on_submit():
+        user = database.session.execute(database.select(User).where(User.id == user_id)).scalar()
+        database.session.delete(user)
+        database.session.commit()
+    return redirect(url_for("leaderboard.leaderboard"))

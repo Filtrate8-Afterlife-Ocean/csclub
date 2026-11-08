@@ -13,10 +13,10 @@
         
         <a href="{{ url_for('main.home') if current_user.is_authenticated else url_for('main.landing') }}">CS Club</a>
         <ul>
-          {# <li><a href="{{ url_for('main.home') }}">Home</a></li> #}
-          {# <li><a href="{{ url_for('main.about') }}">About</a></li> #}
-          <li><a href="{{ url_for('announcements.announcements') }}">Announcements</a></li>
+
           {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('leaderboard.leaderboard') }}">Leaderboard</a></li>
+            <li><a href="{{ url_for('announcements.announcements') }}">Announcements</a></li>
             {% if current_user.is_exec %}
               <li><a href="{{ url_for('announcements.announce') }}">Post</a></li>
             {% endif %}
