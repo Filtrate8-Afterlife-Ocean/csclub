@@ -7,9 +7,12 @@ const newPuzzleBtn  = document.getElementById("newPuzzleBtn");
 let nums;
 let num;
 let target;
-let currentSum;
 let left;
 let right;
+
+let idx1;
+let idx2;
+let currentSum;
 
 let boxes = document.getElementById("boxes")
 let slot;
@@ -32,7 +35,9 @@ function render() {
     document.getElementById("sum").textContent = currentSum;
 
     if (currentSum === target) {
-        document.getElementById("message").textContent = "Target Found!";
+        document.getElementById("message").textContent = "Target found!";
+    } else if (left > Math.min(idx1, idx2) || right < Math.max(idx1, idx2)) {
+        document.getElementById("message").textContent = "You skipped it! Try a new puzzle.";
     }
 
     for (let idx = 0; idx < length; idx++) {
@@ -80,14 +85,16 @@ function moveRight() {
 }
 
 function newPuzzle() {
+    document.getElementById("message").textContent = "";
+
     nums = [];
     for (let idx = 0; idx < length; idx++) {
         nums.push(getRandomInt(100))
     }
     nums.sort(compareNumbers)
     
-    let idx1 = getRandomInt(length);
-    let idx2 = getRandomInt(length);
+    idx1 = getRandomInt(length);
+    idx2 = getRandomInt(length);
     while (idx1 === idx2) {
         idx2 = getRandomInt(length);
     }
