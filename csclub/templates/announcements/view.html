@@ -4,7 +4,7 @@
 {% endblock %}
 {% block body %}
     {% for announcement in messages %}
-        <div class="announcement">
+        <div class="announcement" style="text-align: center;">
             <h1>{{ announcement.title }}</h1>
             <p class="message">{{ announcement.message }}</p>
             <small class="date">{{ announcement.date | format_time() }}</small>

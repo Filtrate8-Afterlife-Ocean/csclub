@@ -37,7 +37,6 @@
   box-shadow: var(--pico-card-box-shadow);
   max-width: 75%;
   margin-inline: auto;
-  text-align:center;
 }
 
 .date {
