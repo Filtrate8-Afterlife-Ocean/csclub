@@ -1,0 +1,3 @@
+In front of you lies a series of eight fruits. You would like to consume the maximum number of fruits possible, but you are also a picky eater and can only eat one fruit of each type. Fruits are presented to you one-by-one and you cannot start eating once you start. What is the maximum number of fruits you can select?
+
+Basically it's a find longest subarray with no duplicates problem.

@@ -3,18 +3,13 @@
   Activities - CS Club
 {% endblock %}
 {% block body %}
-    <div class="announcement">
-        <div style="text-align: center;">
-            <h1 >Two Pointers</h1>
-            <a href="{{ url_for('activities.two_pointers.two_pointers') }}">Link</a>
+    {% for activity in descriptions %}
+        <div class="announcement">
+            <div style="text-align: center;">
+                <h1 >{{ activity.title }}</h1>
+                <a href="{{ url_for(activity.endpoint) }}">Link</a>
+            </div>
+            <p class="message">{{ activity.description }}</p>
         </div>
-        <p class="message">As an elf working for Santa's factory, you have been instructed to give two presents for each kid. In front of you lie a series of eight boxes, each with a goodness value and sorted in non-descending order. Each kid has a goodness value in which you must find the two boxes that add up to their goodness value. You cannot tell the goodness value of a given box until you have opened it. Please find the two boxes to give to each kid!<br><br>Basically it's a find target sum given sorted array problem.</p>
-    </div>
-    <div class="announcement">
-        <div style="text-align: center;">
-            <h1 >Sliding Window</h1>
-            <a href="{{ url_for('activities.sliding_window.sliding_window') }}">Link</a>
-        </div>
-        <p class="message">In front of you lies a series of eight fruits. You would like to consume the maximum number of fruits possible, but you are also a picky eater and can only eat one fruit of each type. Fruits are presented to you one-by-one and you cannot start eating once you start. What is the maximum number of fruits you can select?<br><br>Basically it's a find longest subarray with no duplicates problem.</p>
-    </div>
+    {% endfor %}
 {% endblock %}

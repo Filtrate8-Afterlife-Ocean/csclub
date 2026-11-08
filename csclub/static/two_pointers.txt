@@ -1,0 +1,3 @@
+As an elf working for Santa's factory, you have been instructed to give two presents for each kid. In front of you lie a series of eight boxes, each with a goodness value and sorted in non-descending order. Each kid has a goodness value in which you must find the two boxes that add up to their goodness value. You cannot tell the goodness value of a given box until you have opened it. Please find the two boxes to give to each kid!
+
+Basically it's a find target sum given sorted array problem.
