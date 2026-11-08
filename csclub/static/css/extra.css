@@ -1,39 +1,59 @@
-.message {
-    white-space: pre-line;
+.logo {
+  display: inline-flex;
+  align-items: center;
+  font-size: x-large;
+  color: white;
+  gap: 0.5rem;
 }
 
-.register {
-    margin-bottom: var(--pico-block-spacing-vertical);
-    padding: var(--pico-block-spacing-vertical) var(--pico-block-spacing-horizontal);
-    border-radius: var(--pico-border-radius);
-    background: var(--pico-card-background-color);
-    box-shadow: var(--pico-card-box-shadow);
-    max-width: 30rem;
-    margin-inline: auto;
-    text-align:center;
+.logo img {
+  height: 3rem;
+  width: auto;
+}
+
+.registration {
+  margin-bottom: var(--pico-block-spacing-vertical);
+  padding: var(--pico-block-spacing-vertical) var(--pico-block-spacing-horizontal);
+  border-radius: var(--pico-border-radius);
+  background: var(--pico-card-background-color);
+  box-shadow: var(--pico-card-box-shadow);
+  max-width: 30rem;
+  margin-inline: auto;
+  text-align:center;
+}
+
+.registration img {
+  max-width: 25%;
+  height: auto;
+  border-style: none;
+}
+
+.announcement {
+  position: relative;
+  margin-bottom: var(--pico-block-spacing-vertical);
+  padding: var(--pico-block-spacing-vertical) var(--pico-block-spacing-horizontal);
+  border-radius: var(--pico-border-radius);
+  background: var(--pico-card-background-color);
+  box-shadow: var(--pico-card-box-shadow);
+  max-width: 75%;
+  margin-inline: auto;
+  text-align:center;
+}
+
+.date {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.message {
+    white-space: pre-line;
 }
 
 .error {
     color: #e63946;
 }
 
-.logo {
-  display: inline-flex;
-  align-items: center;
+.remove button {
+  background: #e63946;
 }
-
-img {
-  max-width: 25%;
-  height: auto;
-  border-style: none;
-}
-
-
-
-/* .navbar {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: var(--pico-spacing);
-  padding-left: var(--pico-spacing);
-} */

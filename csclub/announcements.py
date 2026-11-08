@@ -1,3 +1,6 @@
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
+
 from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import login_required
 
@@ -5,6 +8,7 @@ from .auth import exec_required
 from .extensions import database
 from .forms import AnnouncementForm
 from .models import Announcement
+
 
 blueprint = Blueprint("announcements", __name__, url_prefix="/announcements")
 
@@ -37,3 +41,9 @@ def announce():
         flash("Message Successfully Sent!")
         return redirect(url_for('announcements.announcements'))
     return render_template("announcements/create.html", form=form)
+
+# Format time for announcements
+@blueprint.app_template_filter()
+def format_time(time: datetime) -> str:
+    time = time.replace(tzinfo=timezone.utc).astimezone(ZoneInfo("America/Toronto"))
+    return time.strftime("%b %d, %Y at %I:%M %p")

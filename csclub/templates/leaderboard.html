@@ -36,7 +36,7 @@
                         {% endif %}
                         <form action="{{ url_for('auth.remove', user_id=user.id) }}" method="post">
                             <div>{{ form.csrf_token }}</div>
-                            <p class="button">
+                            <p class="remove button">
                                 <button type="submit">Remove</button>
                             </p>
                         </form>

@@ -5,15 +5,17 @@
   Post - CS Club
 {% endblock %}
 {% block body %}
-    <form action="{{ url_for('announcements.announce') }}" method="post">
-        <div>{{ form.csrf_token }}</div>
+    <div class="announcement"> 
+        <form action="{{ url_for('announcements.announce') }}" method="post">
+            {{ form.csrf_token }}
+            
+            {{ render_field(form.title )}}
+            {{ render_field(form.message )}}
+            {{ render_field(form.url )}}
 
-        {{ render_field(form.title )}}
-        {{ render_field(form.message )}}
-        {{ render_field(form.url )}}
-
-        <p class="button">
-            <button type="submit">Post announcement!</button>
-        </p>
-    </form>
+            <p class="button">
+                <button type="submit">Post announcement!</button>
+            </p>
+        </form>
+    </div>
 {% endblock %}

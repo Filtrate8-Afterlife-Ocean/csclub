@@ -4,10 +4,10 @@
 {% endblock %}
 {% block body %}
     {% for announcement in messages %}
-        <div class="container">
+        <div class="announcement">
             <h1>{{ announcement.title }}</h1>
             <p class="message">{{ announcement.message }}</p>
-            <p>{{ announcement.date }}</p>
+            <small class="date">{{ announcement.date | format_time() }}</small>
             {% if announcement.url %}
                 <iframe src="{{ announcement.url }}" width="800" height="450"></iframe>
             {% endif %}
