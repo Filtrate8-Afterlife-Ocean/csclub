@@ -7,9 +7,12 @@
         <div class="announcement">
             <div style="text-align: center;">
                 <h1 >{{ activity.title }}</h1>
-                <a href="{{ url_for(activity.endpoint) }}">Link</a>
+                <a href="{{ url_for(activity.endpoint) }}">Activity Link</a>
             </div>
             <p class="message">{{ activity.description }}</p>
+            {% if activity.leetcode_url %} 
+                <p class="message">Once you understand the activity try <a href="{{ activity.leetcode_url }}">{{ activity.leetcode_url }}</a></p>
+            {% endif %}
         </div>
     {% endfor %}
 {% endblock %}

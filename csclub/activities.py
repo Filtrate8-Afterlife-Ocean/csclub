@@ -13,15 +13,16 @@ blueprint.register_blueprint(sliding_window.blueprint)
 STATIC_DIR = Path(__file__).parent / "static"
 
 class ActivityDescription:
-    def __init__(self, title: str, endpoint: str, filename: str) -> None:
+    def __init__(self, title: str, endpoint: str, filename: str, leetcode_url: str = None) -> None:
         self.title = title
         self.endpoint = endpoint
         with open(STATIC_DIR / filename, "r", encoding="utf-8") as file:
             self.description = file.read()
+        self.leetcode_url = leetcode_url
 
 descriptions = [
-    ActivityDescription("Two Pointers", "activities.two_pointers.two_pointers", "two_pointers.txt"),
-    ActivityDescription("Sliding Window", "activities.sliding_window.sliding_window", "sliding_window.txt"),
+    ActivityDescription("Two Pointers", "activities.two_pointers.two_pointers", "two_pointers.txt", "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/"),
+    ActivityDescription("Sliding Window", "activities.sliding_window.sliding_window", "sliding_window.txt", "https://leetcode.com/problems/longest-substring-without-repeating-characters/description/"),
 ]
 
 # Activities page
