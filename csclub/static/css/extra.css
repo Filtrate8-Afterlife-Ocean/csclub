@@ -64,3 +64,10 @@ html {
 html::-webkit-scrollbar {
   display: none;  
 }
+
+.button-row {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}

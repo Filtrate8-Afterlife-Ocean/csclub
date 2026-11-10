@@ -1,5 +1,7 @@
 const length = 8;
 
+const completeForm = document.getElementById("completeForm");
+
 const moveLeftBtn  = document.getElementById("moveLeftBtn");
 const moveRightBtn  = document.getElementById("moveRightBtn");
 const newPuzzleBtn  = document.getElementById("newPuzzleBtn");
@@ -35,6 +37,7 @@ function render() {
     document.getElementById("sum").textContent = currentSum;
 
     if (currentSum === target) {
+        fetch(completeForm.action, { method: "POST", body: new FormData(completeForm) });
         document.getElementById("message").textContent = "Target found!";
     } else if (left > Math.min(idx1, idx2) || right < Math.max(idx1, idx2)) {
         document.getElementById("message").textContent = "You skipped it! Try a new puzzle.";

@@ -1,9 +1,12 @@
 from pathlib import Path
 
-from flask import Blueprint, render_template
-from flask_login import login_required
+from flask import abort, Blueprint, render_template
+from flask_login import current_user, login_required
 
 from . import sliding_window, two_pointers
+from .extensions import database
+from .forms import ButtonForm
+from .settings import get_setting
 
 blueprint = Blueprint("activities", __name__, url_prefix="/activities")
 blueprint.register_blueprint(two_pointers.blueprint)
@@ -29,4 +32,15 @@ descriptions = [
 @blueprint.get("/")
 @login_required
 def activities():
-    return render_template("activities/index.html", descriptions=descriptions)
+    return render_template("activities/index.html", descriptions=descriptions, activities_shown=get_setting().activities_shown)
+
+# Give points
+@blueprint.post("/give-points")
+@login_required
+def give_points():
+    form = ButtonForm()
+    if form.validate_on_submit():
+        current_user.points += 10
+        database.session.commit()
+        return "", 204
+    abort(400)

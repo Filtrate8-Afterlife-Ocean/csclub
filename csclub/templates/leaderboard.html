@@ -3,11 +3,34 @@
   Leaderboard - CS Club
 {% endblock %}
 {% block body %}
+    {% if current_user.is_exec %} 
+        <div class="button-row"> 
+            <form action="{{ url_for('leaderboard.reset_points') }}" method="post">
+                <div>{{ form.csrf_token }}</div>
+                <p class="button">
+                    <button type="submit">Reset Points</button>
+                </p>
+            </form>
+            <form action="{{ url_for('leaderboard.toggle_activities') }}" method="post">
+                <div>{{ form.csrf_token }}</div>
+                {% if activities_shown %}
+                    <p class="remove button">
+                        <button type="submit">Hide activities</button>
+                    </p>
+                {% else %}
+                    <p class="button">
+                        <button type="submit">Show activities</button>
+                    </p>
+                {% endif %}
+            </form>
+        </div>
+    {% endif %}
     <table>
     <tr>
         <tr>
             <th>Username</th>
             <th>Name</th>
+            <th>Points</th>
             {% if current_user.is_exec %}
                 <th>Email</th>
             {% endif %}
@@ -16,6 +39,7 @@
             <tr>
                 <td>{{ user.username }}</td>
                 <td>{{ user.name }}</td>
+                <td>{{ user.points }}</td>
                 {% if current_user.is_exec %}
                     <td> {{user.email}} </td>
                     <td>

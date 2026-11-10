@@ -16,6 +16,7 @@ class User(UserMixin, database.Model):
     password_hash: Mapped[str] = mapped_column()
     is_exec: Mapped[bool] = mapped_column(default=False)
     # attendance_count: Mapped[int] = mapped_column(default=0)
+    points: Mapped[int] = mapped_column(default=0, server_default="0")
     
     def set_password(self, password: str) -> None:
         self.password_hash = generate_password_hash(password)
@@ -30,3 +31,8 @@ class Announcement(database.Model):
     message: Mapped[str] = mapped_column()
     date: Mapped[datetime] = mapped_column(default=lambda: datetime.now(timezone.utc))
     url: Mapped[str | None] = mapped_column()
+
+# Settings for the website
+class Setting(database.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    activities_shown: Mapped[bool] = mapped_column(default=False)

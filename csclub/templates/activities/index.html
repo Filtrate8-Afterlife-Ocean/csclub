@@ -3,16 +3,20 @@
   Activities - CS Club
 {% endblock %}
 {% block body %}
-    {% for activity in descriptions %}
-        <div class="announcement">
-            <div style="text-align: center;">
-                <h1 >{{ activity.title }}</h1>
-                <a href="{{ url_for(activity.endpoint) }}">Activity Link</a>
+    {% if activities_shown %}
+        {% for activity in descriptions %}
+            <div class="announcement">
+                <div style="text-align: center;">
+                    <h1 >{{ activity.title }}</h1>
+                    <a href="{{ url_for(activity.endpoint) }}">Activity Link</a>
+                </div>
+                <p class="message">{{ activity.description }}</p>
+                {% if activity.leetcode_url %} 
+                    <p class="message">Once you understand the activity try <a href="{{ activity.leetcode_url }}">{{ activity.leetcode_url }}</a></p>
+                {% endif %}
             </div>
-            <p class="message">{{ activity.description }}</p>
-            {% if activity.leetcode_url %} 
-                <p class="message">Once you understand the activity try <a href="{{ activity.leetcode_url }}">{{ activity.leetcode_url }}</a></p>
-            {% endif %}
-        </div>
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+        <p>Activities are disabled (for now)!</p>
+    {% endif %}
 {% endblock %}

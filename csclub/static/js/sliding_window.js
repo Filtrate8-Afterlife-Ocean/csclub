@@ -1,6 +1,8 @@
 const length = 8;
 const fruits = ["🍎", "🍊", "🍐", "🍉"];
 
+const completeForm = document.getElementById("completeForm");
+
 const moveLeftBtn  = document.getElementById("moveLeftBtn");
 const moveRightBtn  = document.getElementById("moveRightBtn");
 const newPuzzleBtn  = document.getElementById("newPuzzleBtn");
@@ -35,6 +37,7 @@ function render() {
     document.getElementById("current").textContent = current;
 
     if (current === solution) {
+        fetch(completeForm.action, { method: "POST", body: new FormData(completeForm) });
         document.getElementById("message").textContent = "Solution found!";
     } else if (left >= idx1) {
         document.getElementById("message").textContent = "You skipped it! Try a new puzzle.";

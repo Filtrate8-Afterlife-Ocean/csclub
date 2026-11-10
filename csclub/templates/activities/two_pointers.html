@@ -5,6 +5,10 @@
 {% block body %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/activities.css') }}">
 
+    <form id="completeForm" method="post" action="{{ url_for('activities.give_points') }}" hidden>
+        {{ form.csrf_token }}
+    </form>
+
     <div id="boxes" class="boxes"></div>
 
 
