@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}
+    N-Queens - CS Club
+{% endblock %}
+{% block body %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/activities.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/n_queens.css') }}">
+
+    <form id="completeForm" method="post" action="{{ url_for('activities.give_points') }}" hidden>
+        {{ form.csrf_token }}
+    </form>
+
+    <div class="button-row">
+        <p class="button">
+            <select id="sizeSelect"></select>
+        </p>
+
+        <p class="button">
+            <button type="button" id="newPuzzleBtn">New puzzle</button>
+        </p>
+    </div>
+
+    <div id="board" class="board"></div>
+
+    <div class="text-row">
+        <p><strong>Queens left: <span id="queensLeft"></span></strong></p>
+        <p><strong>Worth: <span id="worth"></span> points</strong></p>
+    </div>
+
+    <div class="text-row">
+        <p><strong><span id="message"></span></strong></p>
+    </div>
+
+    <div class="grid-row">
+        <label>
+            Input
+            <textarea id="input" readonly></textarea>
+        </label>
+
+        <label>
+            Your answer
+            <textarea id="answer"></textarea>
+        </label>
+    </div>
+
+    <div class="button-row">
+        <p class="button">
+            <button type="button" id="submitBtn">Submit</button>
+        </p>
+    </div>
+
+    <script defer src="/static/js/n_queens.js"></script>
+{% endblock %}

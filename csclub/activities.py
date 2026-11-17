@@ -3,7 +3,7 @@ from pathlib import Path
 from flask import abort, Blueprint, render_template
 from flask_login import current_user, login_required
 
-from . import sliding_window, two_pointers
+from . import sliding_window, two_pointers, n_queens
 from .extensions import database
 from .forms import ButtonForm
 from .settings import get_setting
@@ -26,6 +26,7 @@ class ActivityDescription:
 descriptions = [
     ActivityDescription("Two Pointers", "activities.two_pointers.two_pointers", "two_pointers.txt", "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/"),
     ActivityDescription("Sliding Window", "activities.sliding_window.sliding_window", "sliding_window.txt", "https://leetcode.com/problems/longest-substring-without-repeating-characters/description/"),
+    ActivityDescription("N-Queens", "activities.n_queens.n_queens", "n_queens.txt", "https://leetcode.com/problems/n-queens/description/"),
 ]
 
 # Activities page

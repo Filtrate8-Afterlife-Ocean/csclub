@@ -1,0 +1,57 @@
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.board {
+    --size: min(30rem, 90vw);
+    display: grid;
+    grid-template-columns: repeat(var(--n), 1fr);
+    grid-template-rows: repeat(var(--n), 1fr);
+    gap: 0.25rem;
+    width: var(--size);
+    height: var(--size);
+    margin: 0 auto 1rem;
+}
+
+.square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    font-size: calc(var(--size) / var(--n) * 0.5);
+    line-height: 1;
+    border: 2px solid #1e1e1e;
+    border-radius: 0.5rem;
+    background: #e7f5ff;
+    cursor: pointer;
+}
+
+.square.dark {
+    background: #a5d8ff;
+}
+
+.square.fixed {
+    background: #ced4da;
+}
+
+.square.danger {
+    background: #ffa8a8;
+}
+
+.square.solved {
+    background: #b2f2bb;
+}
+
+.grid-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.grid-row textarea {
+    width: 14rem;
+    font-family: monospace;
+    letter-spacing: 0.3rem;
+}
