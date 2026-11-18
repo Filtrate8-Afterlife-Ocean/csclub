@@ -4,7 +4,6 @@ from flask_login import login_required
 from .forms import ButtonForm
 from .settings import activity_toggle_required
 
-
 blueprint = Blueprint("two_pointers", __name__, url_prefix="/two-pointers")
 
 # Activities page

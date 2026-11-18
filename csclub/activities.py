@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from flask import abort, Blueprint, render_template
+from flask import Blueprint, abort, render_template
 from flask_login import current_user, login_required
 
-from . import sliding_window, two_pointers, n_queens
+from . import n_queens, sliding_window, two_pointers
 from .extensions import database
 from .forms import ButtonForm
 from .settings import get_setting
@@ -20,14 +20,14 @@ class ActivityDescription:
     def __init__(self, title: str, endpoint: str, filename: str, leetcode_url: str = None) -> None:
         self.title = title
         self.endpoint = endpoint
-        with open(STATIC_DIR / filename, "r", encoding="utf-8") as file:
+        with open(STATIC_DIR / 'activities' / filename / f"{filename}.txt", "r", encoding="utf-8") as file:
             self.description = file.read()
         self.leetcode_url = leetcode_url
 
 descriptions = [
-    ActivityDescription("N-Queens", "activities.n_queens.n_queens", "n_queens.txt", "https://leetcode.com/problems/n-queens/description/"),
-    ActivityDescription("Two Pointers", "activities.two_pointers.two_pointers", "two_pointers.txt", "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/"),
-    ActivityDescription("Sliding Window", "activities.sliding_window.sliding_window", "sliding_window.txt", "https://leetcode.com/problems/longest-substring-without-repeating-characters/description/"),
+    ActivityDescription("N-Queens", "activities.n_queens.n_queens", "n_queens", "https://leetcode.com/problems/n-queens/description/"),
+    ActivityDescription("Two Pointers", "activities.two_pointers.two_pointers", "two_pointers", "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/"),
+    ActivityDescription("Sliding Window", "activities.sliding_window.sliding_window", "sliding_window", "https://leetcode.com/problems/longest-substring-without-repeating-characters/description/"),
 ]
 
 # Activities page

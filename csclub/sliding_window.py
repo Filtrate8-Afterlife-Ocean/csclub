@@ -4,7 +4,6 @@ from flask_login import login_required
 from .forms import ButtonForm
 from .settings import activity_toggle_required
 
-
 blueprint = Blueprint("sliding_window", __name__, url_prefix="/sliding-window")
 
 # Activities page

@@ -9,7 +9,6 @@ from .extensions import database
 from .forms import AnnouncementForm
 from .models import Announcement
 
-
 blueprint = Blueprint("announcements", __name__, url_prefix="/announcements")
 
 # Submit announcements

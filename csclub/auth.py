@@ -1,7 +1,8 @@
 from functools import wraps
 
 from click import argument, secho
-from flask import Blueprint, abort, flash, redirect, render_template, url_for, request
+from flask import (Blueprint, abort, flash, redirect, render_template, request,
+                   url_for)
 from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy.exc import IntegrityError
 

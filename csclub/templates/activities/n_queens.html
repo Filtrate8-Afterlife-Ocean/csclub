@@ -4,7 +4,7 @@
 {% endblock %}
 {% block body %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/activities.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/n_queens.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='activities/n_queens/n_queens.css') }}">
 
     <form id="completeForm" method="post" action="{{ url_for('activities.give_points') }}" hidden>
         {{ form.csrf_token }}
@@ -49,5 +49,5 @@
         </p>
     </div>
 
-    <script defer src="/static/js/n_queens.js"></script>
+    <script defer src="/static/activities/n_queens/n_queens.js"></script>
 {% endblock %}
